@@ -85,6 +85,8 @@ Map<string, Map<string, Set<number>>>
 - `forEach(key, callback[, thisArg])`
 - `get(key)` – Returns the internal set instance or `undefined` if not found
 - `has(key, value)`
+- `hasKey(key)` – Returns true if there is a set under the given key
+  - Note: Empty sets will always return false because they are garbage collected away.
 - `values(key)`
 
 ## Supported keys

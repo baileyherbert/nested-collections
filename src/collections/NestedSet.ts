@@ -143,6 +143,20 @@ export class NestedSet<K = any, T = any> {
 	}
 
 	/**
+	 * Returns a boolean indicating whether the given key exists in the collection.
+	 *
+	 * Please note: This will return `false` if the set at the given key is empty, because the collection does not
+	 * preserve empty sets as part of its garbage collection.
+	 *
+	 * @param key
+	 * @returns
+	 */
+	public hasKey(key: K) {
+		const [ target, name ] = this._getMapFromKey(key);
+		return target !== undefined && target.has(name);
+	}
+
+	/**
 	 * Returns a new iterator object that contains the values for each element in the set at the specified key, in
 	 * insertion order.
 	 *
@@ -164,6 +178,31 @@ export class NestedSet<K = any, T = any> {
 	 */
 	public get size(): number {
 		return this.count;
+	}
+
+	/**
+	 * Retrieves the internal map above the given key.
+	 *
+	 * @param key
+	 * @returns
+	 */
+	protected _getMapFromKey(key: any): [ map: Map<any, any> | undefined, name: any ] {
+		if (!Array.isArray(key)) {
+			key = [key];
+		}
+
+		let target = this.data;
+		let keyName = key.pop();
+
+		for (let index = 0; index < key.length; index++) {
+			target = target.get(key[index]);
+
+			if (!target) {
+				return [ undefined, undefined ];
+			}
+		}
+
+		return [ target, keyName ];
 	}
 
 	/**
