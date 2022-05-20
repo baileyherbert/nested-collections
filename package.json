@@ -1,0 +1,47 @@
+{
+	"name": "@baileyherbert/nested-collections",
+	"version": "dev",
+	"description": "Nested maps and sets made easier to work with.",
+	"author": "Bailey Herbert <hello+npm@bailey.sh> (https://bailey.sh)",
+	"repository": "github:baileyherbert/nested-collections",
+	"bugs": "https://github.com/baileyherbert/nested-collections/issues",
+	"license": "MIT",
+	"main": "dist/main.js",
+	"types": "dist/main.d.ts",
+	"files": [
+		"dist/**/*"
+	],
+	"keywords": [
+		"map",
+		"set",
+		"nested map",
+		"nested set",
+		"multidimensional"
+	],
+	"scripts": {
+		"dev": "ts-node-dev --respawn --rs src/main.ts",
+		"build": "rimraf dist && tsc",
+		"watch": "rimraf dist && tsc -w",
+		"start": "node dist/main",
+		"test": "jest"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@types/jest": "^27.4.1",
+		"@types/node": "^16.11.7",
+		"jest": "^27.5.1",
+		"rimraf": "^3.0.2",
+		"ts-jest": "^27.1.3",
+		"ts-node-dev": "^1.1.8",
+		"typescript": "^4.6.2"
+	},
+	"jest": {
+		"preset": "ts-jest",
+		"testEnvironment": "node",
+		"globals": {
+			"ts-jest": {
+				"tsconfig": "tests/tsconfig.json"
+			}
+		}
+	}
+}
