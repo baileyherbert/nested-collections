@@ -16,9 +16,14 @@ describe('NestedMap', function() {
 		expect(map.get('b')).toBe(2);
 		expect(map.get('c')).toBe(undefined);
 
+		expect(map.get(undefined)).toBeInstanceOf(Map);
+		expect(map.get(undefined).has('a')).toBe(true);
+
 		expect(map.has('a')).toBe(true);
 		expect(map.has('b')).toBe(true);
 		expect(map.has('c')).toBe(false);
+
+		expect(map.has(undefined)).toBe(true);
 
 		expect(map.size).toBe(2);
 		expect(map.delete('a')).toBe(true);
@@ -28,6 +33,7 @@ describe('NestedMap', function() {
 
 		expect(map.size).toBe(0);
 		expect(map.get('a')).toBe(undefined);
+		expect(map.has(undefined)).toBe(true);
 	});
 
 	it('supports two-dimensional keys', function() {
@@ -42,10 +48,21 @@ describe('NestedMap', function() {
 		expect(map.has(['a', 'b'])).toBe(true);
 		expect(map.has(['a', 'c'])).toBe(false);
 
+		expect(map.has(['a'])).toBe(true);
+		expect(map.has(['b'])).toBe(true);
+		expect(map.has(['c'])).toBe(false);
+		expect(map.has([])).toBe(true);
+
 		expect(map.get(['a', 'a'])).toBe(1);
 		expect(map.get(['a', 'b'])).toBe(2);
 		expect(map.get(['b', 'a'])).toBe(3);
 		expect(map.get(['b', 'b'])).toBe(4);
+
+		expect(map.get(['a'])).toBeInstanceOf(Map);
+		expect(map.get(['a'])?.has('a')).toBe(true);
+		expect(map.get([])).toBeInstanceOf(Map);
+		expect(map.get([])?.has('a')).toBe(true);
+		expect(map.get([])?.get('a')?.has('a')).toBe(true);
 
 		expect(map.size).toBe(4);
 

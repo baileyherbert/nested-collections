@@ -17,12 +17,15 @@ describe('NestedSet', function() {
 		expect(set.get('d')).toBeInstanceOf(Set);
 		expect(set.get('e')).toBe(undefined);
 
+		expect(set.get(undefined)).toBeInstanceOf(Map);
+
 		expect(set.has('a', 1)).toBe(true);
 		expect(set.has('a', 2)).toBe(false);
 		expect(set.has('e', 1)).toBe(false);
 
 		expect(set.hasKey('a')).toBe(true);
 		expect(set.hasKey('e')).toBe(false);
+		expect(set.hasKey(undefined)).toBe(true);
 
 		expect(set.delete('a', 2)).toBe(false);
 		expect(set.delete('a', 1)).toBe(true);
@@ -69,6 +72,12 @@ describe('NestedSet', function() {
 		expect(set.hasKey(['a', 'b', 'b'])).toBe(true);
 		expect(set.hasKey(['a', 'b', 'c'])).toBe(false);
 
+		expect(set.hasKey(['a', 'b'])).toBe(true);
+		expect(set.hasKey(['a', 'c'])).toBe(false);
+		expect(set.hasKey(['a'])).toBe(true);
+		expect(set.hasKey(['b'])).toBe(false);
+		expect(set.hasKey([])).toBe(true);
+
 		expect(set.size).toBe(3);
 
 		expect([...set.values(['a', 'a', 'a'])]).toEqual([1, 2]);
@@ -78,6 +87,10 @@ describe('NestedSet', function() {
 		expect(set.get(['a', 'b', 'b'])).toBeInstanceOf(Set);
 		expect(set.get(['a', 'a', 'b'])).toBe(undefined);
 		expect(set.get(['a', 'b', 'a'])).toBe(undefined);
+
+		expect(set.get(['a', 'a'])).toBeInstanceOf(Map);
+		expect(set.get(['a', 'a'])!.has('a')).toBe(true);
+		expect(set.get(['a', 'a'])!.get('a')!.has(1)).toBe(true);
 
 		/**
 		 * When deleting from the collection, it will attempt to clean up empty maps and sets where possible.

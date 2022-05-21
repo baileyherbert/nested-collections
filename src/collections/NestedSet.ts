@@ -1,3 +1,4 @@
+import { GetSetReturnType, PartialKey } from '../types';
 
 export class NestedSet<K = any, T = any> {
 
@@ -126,7 +127,13 @@ export class NestedSet<K = any, T = any> {
 	 * @param key
 	 * @returns
 	 */
-	public get(key: K) {
+	public get(key: K): Set<T> | undefined;
+	public get<I extends PartialKey<K>>(key: I): GetSetReturnType<K, T, I>;
+	public get(key: any): any {
+		if (key === undefined) {
+			return this.data;
+		}
+
 		return this._getSetFromKey(key);
 	}
 
@@ -151,9 +158,11 @@ export class NestedSet<K = any, T = any> {
 	 * @param key
 	 * @returns
 	 */
+	public hasKey(key: K): boolean;
+	public hasKey<T extends PartialKey<K>>(key: T): boolean;
 	public hasKey(key: K) {
 		const [ target, name ] = this._getMapFromKey(key);
-		return target !== undefined && target.has(name);
+		return target !== undefined && (name === undefined || target.has(name));
 	}
 
 	/**

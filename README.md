@@ -107,3 +107,22 @@ new NestedMap<[Symbol], number>();
 new NestedMap<[string, string], number>();
 new NestedMap<[Symbol, string], number>();
 ```
+
+## Partial keys
+
+Some methods in the collections support partial keys to retrieve the underlying maps. These calls and their respective
+return values are strongly typed as well. For example:
+
+```ts
+const map = new NestedMap<[string, string], number>();
+
+map.get(['first']); // Map<string, number> | undefined
+map.get([]); // Map<string, Map<string, number>>
+```
+
+You can currently use partial keys in the following methods:
+
+- `map.get()`
+- `map.has()`
+- `set.get()`
+- `set.hasKey()`

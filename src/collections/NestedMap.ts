@@ -1,3 +1,5 @@
+import { GetMapReturnType, PartialKey } from '../types';
+
 export class NestedMap<K = any, V = any> {
 
 	/**
@@ -63,10 +65,16 @@ export class NestedMap<K = any, V = any> {
 	 * @param key
 	 * @returns
 	 */
-	public get(key: K): V | undefined {
+	public get(key: K): V | undefined;
+	public get<T extends PartialKey<K>>(key: T): GetMapReturnType<K, V, T>;
+	public get(key: any): any {
 		const [ target, name ] = this._getMap(key);
 
 		if (target) {
+			if (name === undefined) {
+				return target;
+			}
+
 			return target.get(name);
 		}
 
@@ -79,9 +87,11 @@ export class NestedMap<K = any, V = any> {
 	 * @param key
 	 * @returns
 	 */
+	public has(key: K): boolean;
+	public has<T extends PartialKey<K>>(key: T): boolean;
 	public has(key: K): boolean {
 		const [ target, name ] = this._getMap(key);
-		return target !== undefined && target.has(name);
+		return target !== undefined && (name === undefined || target.has(name));
 	}
 
 	/**
