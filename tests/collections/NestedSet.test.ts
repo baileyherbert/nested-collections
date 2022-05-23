@@ -27,6 +27,8 @@ describe('NestedSet', function() {
 		expect(set.hasKey('e')).toBe(false);
 		expect(set.hasKey(undefined)).toBe(true);
 
+		expect(set.keys()).toEqual(['a', 'b', 'c', 'd']);
+
 		expect(set.delete('a', 2)).toBe(false);
 		expect(set.delete('a', 1)).toBe(true);
 		expect(set.size).toBe(3);
@@ -77,6 +79,10 @@ describe('NestedSet', function() {
 		expect(set.hasKey(['a'])).toBe(true);
 		expect(set.hasKey(['b'])).toBe(false);
 		expect(set.hasKey([])).toBe(true);
+
+		expect(set.keys([])).toEqual(['a']);
+		expect(set.keys(['a'])).toEqual(['a', 'b']);
+		expect(set.keys(['a', 'b'])).toEqual(['b']);
 
 		expect(set.size).toBe(3);
 

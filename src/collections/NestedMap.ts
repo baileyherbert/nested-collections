@@ -95,6 +95,25 @@ export class NestedMap<K = any, V = any> {
 	}
 
 	/**
+	 * Returns an array of keys under the given key.
+	 * @param key
+	 */
+	public keys<T extends PartialKey<K>>(key?: T): K[];
+	public keys(key?: K): K[] {
+		const [ target, name ] = this._getMap(key) as any;
+
+		if (target) {
+			if (name !== undefined) {
+				return [...(target.get(name)?.keys() ?? [])];
+			}
+
+			return [...target.keys()];
+		}
+
+		return [];
+	}
+
+	/**
 	 * Adds or updates a value in the collection by its key.
 	 *
 	 * @param key

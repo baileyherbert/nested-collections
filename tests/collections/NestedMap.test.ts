@@ -23,6 +23,8 @@ describe('NestedMap', function() {
 		expect(map.has('b')).toBe(true);
 		expect(map.has('c')).toBe(false);
 
+		expect(map.keys()).toEqual(['a', 'b']);
+
 		expect(map.has(undefined)).toBe(true);
 
 		expect(map.size).toBe(2);
@@ -52,6 +54,10 @@ describe('NestedMap', function() {
 		expect(map.has(['b'])).toBe(true);
 		expect(map.has(['c'])).toBe(false);
 		expect(map.has([])).toBe(true);
+
+		expect(map.keys()).toEqual(['a', 'b']);
+		expect(map.keys(['a'])).toEqual(['a', 'b']);
+		expect(map.keys(['b'])).toEqual(['a', 'b']);
 
 		expect(map.get(['a', 'a'])).toBe(1);
 		expect(map.get(['a', 'b'])).toBe(2);
@@ -103,6 +109,11 @@ describe('NestedMap', function() {
 		expect(map.has(['a', 'a', 'b'])).toBe(true);
 		expect(map.has(['a', 'b', 'a'])).toBe(true);
 		expect(map.has(['a', 'b', 'c'])).toBe(false);
+
+		expect(map.keys([])).toEqual(['a', 'b']);
+		expect(map.keys(['a'])).toEqual(['a', 'b']);
+		expect(map.keys(['b'])).toEqual(['c']);
+		expect(map.keys(['b', 'c'])).toEqual(['a']);
 
 		expect(map.get(['a', 'a', 'a'])).toBe(1);
 		expect(map.get(['a', 'a', 'b'])).toBe(2);

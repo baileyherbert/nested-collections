@@ -166,6 +166,25 @@ export class NestedSet<K = any, T = any> {
 	}
 
 	/**
+	 * Returns an array of keys under the given key.
+	 * @param key
+	 */
+	public keys<T extends PartialKey<K>>(key?: T): K[];
+	public keys(key?: K): K[] {
+		const [ target, name ] = this._getMapFromKey(key);
+
+		if (target) {
+			if (name !== undefined) {
+				return [...(target.get(name)?.keys() ?? [])];
+			}
+
+			return [...target.keys()];
+		}
+
+		return [];
+	}
+
+	/**
 	 * Returns a new iterator object that contains the values for each element in the set at the specified key, in
 	 * insertion order.
 	 *

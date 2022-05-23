@@ -45,6 +45,7 @@ Map<string, Map<string, number>>
 - `delete(key)`
 - `get(key)`
 - `has(key)`
+- `keys([partialKey])` – Returns an array of non-empty keys
 - `set(key, value)`
 
 ## Nested sets
@@ -87,6 +88,7 @@ Map<string, Map<string, Set<number>>>
 - `has(key, value)`
 - `hasKey(key)` – Returns true if there is a set under the given key
   - Note: Empty sets will always return false because they are garbage collected away.
+- `keys([partialKey])` – Returns an array of non-empty keys
 - `values(key)`
 
 ## Supported keys
@@ -124,5 +126,7 @@ You can currently use partial keys in the following methods:
 
 - `map.get()`
 - `map.has()`
+- `map.keys()`
 - `set.get()`
 - `set.hasKey()`
+- `set.keys()`
